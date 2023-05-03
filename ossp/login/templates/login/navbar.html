@@ -1,6 +1,0 @@
-{% if user.is_authenticated %} 
-<a href="{% url 'login:logout' %}">{{ user.username }}님 로그아웃</a>
-{% else %}
-<a href="{% url 'login:login' %}">로그인</a>
-<a href="{% url 'login:signup' %}">회원가입</a>
-{% endif %}

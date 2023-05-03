@@ -3,9 +3,6 @@ from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from login.forms import UserForm
 
-def mainpage(request):
-    return render(request, 'login/navbar.html')
-
 def signup(request):
     if request.method == "POST":
         form = UserForm(request.POST)

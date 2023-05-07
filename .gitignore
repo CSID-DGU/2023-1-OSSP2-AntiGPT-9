@@ -1,3 +1,5 @@
 ossp/.idea
 
 ossp/venv
+venv
+.idea

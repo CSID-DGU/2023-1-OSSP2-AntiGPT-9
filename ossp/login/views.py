@@ -15,3 +15,4 @@ def signup(request):
             return redirect('http://127.0.0.1:8000/userlogin/auth/')
     else:
         form = UserForm()
+    return render(request, 'login/signup.html', {'form': form})

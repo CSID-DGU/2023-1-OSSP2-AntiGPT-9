@@ -1,54 +1,112 @@
-<!DOCTYPE html>
-<html lang="ko">
+<!doctype html>
+<html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-        .vignette {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            box-shadow: 0 0 200px rgba(0, 0, 0, 0.3) inset;
-        }
-        .wrapper {
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .inner {
-            font-size: 28px;
-            font-family: 'Poor Story', cursive;
-            text-align: center;
-        }
-        .btn {
-            width: 100px;
-            height: 40px;
-            border-radius: 10px;
-            background-color: rgb(89, 89, 228);
-            color: white;
-        }
-    </style>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poor+Story&display=swap" rel="stylesheet">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Modernize Free</title>
+  <link rel="shortcut icon" type="image/png" href="../../static/favicon.png" />
+  <link rel="stylesheet" href="../../static/bootstrap.min.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <script src="../../static/bootstrap.bundle.js"></script>
 </head>
 
 <body>
-    <div class="wrapper vignette">
-        <div class="inner">
-            <img src="https://cdn-icons-png.flaticon.com/512/700/700820.png" width="100px">
-            <p>"AntiGPT에 혼저 옵서예~"</p>
-            <p>서비스 계정으로 로그인 후 이용해 주세요.</p>
-            <button class="btn" type="submit" onclick="location.href='/userlogin/auth/'">로그인</button>
-            <button class="btn" type="submit" onclick="location.href='/userlogin/signup/'">회원가입</button>
+  <!--  Body Wrapper -->
+  <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+    data-sidebar-position="fixed" data-header-position="fixed">
+    <!--  Main wrapper -->
+    <div class="body-wrapper">
+      <!--  Header Start -->
+      <header class="app-header">
+        <nav class="navbar navbar-expand-lg navbar-light">
+          <ul class="navbar-nav">
+            <li class="nav-item d-block d-xl-none">
+              <a class="nav-link sidebartoggler nav-icon-hover" id="headerCollapse" href="javascript:void(0)">
+                <i class="ti ti-menu-2"></i>
+              </a>
+            </li>
+            <li class="nav-item">
+              <!-- 설정버튼 -->
+              <a class="nav-link nav-icon-hover" href="javascript:void(0)" id="drop2" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="ti ti-settings"></i>
+              </a>
+              <!-- 드롭다운 메뉴 -->
+              <div class="dropdown-menu dropdown-menu-end dropdown-menu-animate-up" aria-labelledby="drop2">
+                <div class="message-body">
+                  <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
+                    <i class="ti ti-user fs-6"></i>
+                    <p class="mb-0 fs-3">My Profile</p>
+                  </a>
+                  <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
+                    <i class="ti ti-mail fs-6"></i>
+                    <p class="mb-0 fs-3">My Account</p>
+                  </a>
+                  <a href="javascript:void(0)" class="d-flex align-items-center gap-2 dropdown-item">
+                    <i class="ti ti-list-check fs-6"></i>
+                    <p class="mb-0 fs-3">My Task</p>
+                  </a>
+                  <a href="./authentication-login.html" class="btn btn-outline-primary mx-3 mt-2 d-block">Logout</a>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </nav>
+      </header>
+      <!--  Header End -->
+      <div class="container-fluid">
+        <div class="container-fluid">
+          <div class="card">
+            <div class="card-body">
+              <h5 class="card-title fw-semibold mb-4">Buttons</h5>
+              <div class="card">
+                <div class="card-body p-4">
+                  <button type="button" class="btn btn-primary m-1">Primary</button>
+                  <button type="button" class="btn btn-secondary m-1">Secondary</button>
+                  <button type="button" class="btn btn-success m-1">Success</button>
+                  <button type="button" class="btn btn-danger m-1">Danger</button>
+                  <button type="button" class="btn btn-warning m-1">Warning</button>
+                  <button type="button" class="btn btn-info m-1">Info</button>
+                  <button type="button" class="btn btn-light m-1">Light</button>
+                  <button type="button" class="btn btn-dark m-1">Dark</button>
+                  <button type="button" class="btn btn-link m-1">Link</button>
+                </div>
+              </div>
+              <h5 class="card-title fw-semibold mb-4">Outline buttons</h5>
+              <div class="card mb-0">
+                <div class="card-body p-4">
+                  <button type="button" class="btn btn-outline-primary m-1">Primary</button>
+                  <button type="button" class="btn btn-outline-secondary m-1">Secondary</button>
+                  <button type="button" class="btn btn-outline-success m-1">Success</button>
+                  <button type="button" class="btn btn-outline-danger m-1">Danger</button>
+                  <button type="button" class="btn btn-outline-warning m-1">Warning</button>
+                  <button type="button" class="btn btn-outline-info m-1">Info</button>
+                  <button type="button" class="btn btn-outline-light m-1">Light</button>
+                  <button type="button" class="btn btn-outline-dark m-1">Dark</button>
+                  <button type="button" class="btn btn-outline-link m-1">Link</button>
+                </div>
+              </div>
+            </div>
+
+            <div class="card-body">
+              <h5 class="card-title fw-semibold mb-4">초기 페이지</h5>
+              <div class="card">
+                <div class="card-body p-4">
+                  <button type="button" class="btn btn-primary m-1" onclick="location.href='/userlogin/auth/'">로그인</button>
+                  <button type="button" class="btn btn-primary m-1" onclick="location.href='/userlogin/signup/'">회원가입</button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
+  <!-- 기타 js 기존 경로 -->
+  <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
+  <script src="../assets/js/sidebarmenu.js"></script>
+  <script src="../assets/js/app.min.js"></script>
+  <script src="../assets/libs/simplebar/dist/simplebar.js"></script>
 </body>
 
 </html>

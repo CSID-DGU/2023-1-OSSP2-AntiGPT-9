@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        .vignette {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            box-shadow: 0 0 200px rgba(0, 0, 0, 0.3) inset;
+        }
+        .wrapper {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        .inner {
+            font-size: 28px;
+            font-family: 'Poor Story', cursive;
+            text-align: center;
+        }
+        .btn {
+            width: 100px;
+            height: 40px;
+            border-radius: 10px;
+            background-color: rgb(89, 89, 228);
+            color: white;
+        }
+    </style>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poor+Story&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="wrapper vignette">
+        <div class="inner">
+            <img src="https://cdn-icons-png.flaticon.com/512/700/700820.png" width="100px">
+            <p>"AntiGPT에 혼저 옵서예~"</p>
+            <p>서비스 계정으로 로그인 후 이용해 주세요.</p>
+            <button class="btn" type="submit" onclick="location.href='/userlogin/auth/'">로그인</button>
+            <button class="btn" type="submit" onclick="location.href='/userlogin/signup/'">회원가입</button>
+        </div>
+    </div>
+</body>
+
+</html>

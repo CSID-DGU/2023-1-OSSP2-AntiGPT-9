@@ -1,54 +1,55 @@
-<!DOCTYPE html>
-<html lang="ko">
+<!doctype html>
+<html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    <style>
-        .vignette {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            box-shadow: 0 0 200px rgba(0, 0, 0, 0.3) inset;
-        }
-        .wrapper {
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
-        .inner {
-            font-size: 28px;
-            font-family: 'Poor Story', cursive;
-            text-align: center;
-        }
-        .btn {
-            width: 100px;
-            height: 40px;
-            border-radius: 10px;
-            background-color: rgb(89, 89, 228);
-            color: white;
-        }
-    </style>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poor+Story&display=swap" rel="stylesheet">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Welcome to JejuGPT</title>
+  <link rel="shortcut icon" type="image/png" href="../../static/favicon.png" />
+  <link rel="stylesheet" href="../../static/bootstrap.min.css" />
+  <!-- 폰트 css를 bootstrap css이후에 덮어써야 폰트 잘 나옵니다!! -->
+  <link rel="stylesheet" href="../../static/Noto-Sans-KR.css" />
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
+  <script src="../../static/bootstrap.bundle.js"></script>
 </head>
 
 <body>
-    <div class="wrapper vignette">
-        <div class="inner">
-            <img src="https://cdn-icons-png.flaticon.com/512/700/700820.png" width="100px">
-            <p>"AntiGPT에 혼저 옵서예~"</p>
-            <p>서비스 계정으로 로그인 후 이용해 주세요.</p>
-            <button class="btn" type="submit" onclick="location.href='/userlogin/auth/'">로그인</button>
-            <button class="btn" type="submit" onclick="location.href='/userlogin/signup/'">회원가입</button>
+  <!--  Body Wrapper -->
+  <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
+    data-sidebar-position="fixed" data-header-position="fixed">
+    <div
+      class="position-relative overflow-hidden radial-gradient min-vh-100 d-flex align-items-center justify-content-center">
+      <div class="d-flex align-items-center justify-content-center w-100">
+        <div class="row justify-content-center w-100">
+          <div class="col-md-8 col-lg-6 col-xxl-3">
+            <div class="card bg-transparent shadow-none">
+              <div class="card-body">
+                <a href="/" class="text-nowrap logo-img text-center d-block py-3 w-100">
+                  <img src="../../static/dark-logo.svg" width="180" alt="">
+                </a>
+                <p class="text-center">JejuGPT는 제주 방언을 표준어로 의미 번역하는 언어 처리 모델을 ChatGPT에 적용한 서비스입니다.</p>
+                <div class="d-flex gap-4 align-items-center justify-content-between">
+                  <button type="submit" class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2"
+                    onclick="location.href='/userlogin/auth/'">로그인</button>
+                  <button type="submit" class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2"
+                    onclick="location.href='/userlogin/auth/'">Google 계정으로 계속</button>
+                </div>
+                <div class="d-flex align-items-center justify-content-center">
+                  <p class="fs-4 mb-0 fw-bold">JejuGPT 이용이 처음이시면</p>
+                  <a class="fs-4 text-primary fw-bold ms-2" href="{% url 'login:signup' %}">회원가입</a>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
+      </div>
     </div>
+  </div>
+  <!-- 기타 js 기존 경로 -->
+  <!-- <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
+  <script src="../assets/js/sidebarmenu.js"></script>
+  <script src="../assets/js/app.min.js"></script>
+  <script src="../assets/libs/simplebar/dist/simplebar.js"></script> -->
 </body>
 
 </html>

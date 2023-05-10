@@ -3,3 +3,4 @@ ossp/.idea
 ossp/venv
 
 ossp/myvenv
+*.pyc

@@ -27,10 +27,7 @@
                 <form method="post" action="{% url 'login:signup' %}">
                   {% csrf_token %}
                   {% include "login/error.html" %}
-                  <div class="mb-3">
-                    <label for="username" class="form-label">이름</label>
-                    <input type="text" class="form-control" name="username" id="username" aria-describedby="textHelp">
-                  </div>
+
                   <div class="mb-3">
                     <label for="email" class="form-label">이메일</label>
                     <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp">

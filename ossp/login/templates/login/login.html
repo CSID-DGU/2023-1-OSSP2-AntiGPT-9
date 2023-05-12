@@ -28,26 +28,37 @@
                   {% csrf_token %}
                   {% include 'login/error.html' %}
                   <div class="mb-3">
-                    <label for="username" class="form-label">이름</label>
-                    <input type="text" class="form-control" name="username" id="username">
+                    <label for="email" class="form-label">이메일</label>
+                    <input type="text" class="form-control" name="email" id="email">
                   </div>
                   <div class="mb-4">
                     <label for="password" class="form-label">비밀번호</label>
                     <input type="password" class="form-control" name="password" id="password">
                   </div>
+
                   <div class="d-flex align-items-center justify-content-between mb-4">
                     <div class="form-check">
                       <input class="form-check-input primary" type="checkbox" value="" id="flexCheckChecked" checked>
                       <label class="form-check-label text-dark" for="flexCheckChecked">
                         아이디 저장
-                      </label>
+                      </label>                      
                     </div>
-                    <a class="text-primary fw-bold" href="./index.html">비밀번호 찾기</a>
+                    <ul style="margin-top: auto; margin-bottom: auto;">
+                      
+                      <li style="float: left;">
+                        <a class="text-primary fw-bold" href="./index.html">비밀번호 찾기&nbsp;</a>
+                      </li>
+                      <li style="float: left;">
+                        <a class="d-flex justify-content-center text-primary fw-bold" href="{% url 'login:signup' %}"> | 회원가입</a>
+                      </li>
+                    </ul>
                   </div>
                   <button type="submit" class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2">로그인</button>
-                  
-                    <a class="d-flex justify-content-center text-primary fw-bold" href="{% url 'login:signup' %}">회원가입하기</a>
-                  
+                  <a href="{% url 'social:begin' 'google-plus' %}">
+                    <button type="button" class="google-login-button btn w-100 py-8 fs-4 mb-4 rounded-2" style="border-color: #D3D3D3;">
+                      <img src="../../static/google.png" width="20" alt="">
+                      &nbsp;&nbsp;&nbsp;&nbsp;Google &nbsp;&nbsp;로그인</button>
+                  </a>
                 </form>
               </div>
             </div>

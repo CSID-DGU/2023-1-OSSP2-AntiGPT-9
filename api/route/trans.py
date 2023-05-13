@@ -1,23 +1,31 @@
 from fastapi import APIRouter, HTTPException, status
-from ..model.sentence import sentence
+from ai.jeju import Jeju
+from pydantic import BaseModel
+from typing import Optional
+# 모델 실행
+model = Jeju
 
 trans_router = APIRouter(
     tags=['trans']
 )
 
 
-#translator router
-@trans_router.post("/trans",response_model=sentence)
-async def translator(body: sentence) -> dict:
-    if sentence is None:
+class Dialect(BaseModel):
+    dialect: str
+    test: Optional[str]
+
+
+# translator router
+@trans_router.post("/jeju")
+async def translator(dialect: Dialect) -> dict:
+    if dialect is None:
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="empty"
         )
-    #jeju to standard
-    #trans = #번역모델
-    #데이터 베이스 저장
-    return { "standard": f"{'''trans'''}"}
+    standard = model.translate(model, dialect.dialect)
+    print(f"'{standard}'")
+    # 데이터 베이스 저장 (later)
+    return {"standard": f"{standard}"}
 
-#query search router
-#query list get router
+# query search router

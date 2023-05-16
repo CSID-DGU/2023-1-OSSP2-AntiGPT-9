@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JejuGPT home</title>
+    <link rel="stylesheet" href="../../../static/bootstrap.min.css" />
+    <link rel="stylesheet" href="../../../static/Noto-Sans-KR.css" />
+</head>
+
+<body>
+    {% if user.is_authenticated %}
+    <a class="mark" href="{% url 'login:logout' %}">{{ user.username }}님 로그아웃</a>
+    {% else %}
+    <a class="mark" href="{% url 'login:login' %}">로그인</a>
+    <a class="mark" href="{% url 'login:signup' %}">회원가입</a>
+    {% endif %}
+
+    <section style="background-color: #eee;">
+        <div class="container py-5">
+
+            <div class="row">
+
+                <div class="col-md-6 col-lg-5 col-xl-4 mb-4 mb-md-0">
+
+                    <h5 class="font-weight-bold mb-3 text-center text-lg-start">채팅 목록</h5>
+
+                    <div class="card">
+                        <div class="card-body">
+                            <ul class="list-unstyled mb-0">
+                                <!--새 채팅 버튼-->
+                                <li class="p-2 border-bottom">
+                                    <a href="/main/homepage/" class="d-flex justify-content-between">
+                                        <div class="pt-1">
+                                            <p class="fw-bold mb-0">+ New Chat</p>
+                                        </div>
+                                    </a>
+                                </li>
+                                <!--채팅목록 생성코드-->
+                                {% if chatList %}
+                                {% for R in chatList %}
+                                <li class="p-2 border-bottom"{% if R.id == chat_id %}style="background-color: #eee;"{% endif %}>
+                                    <a href="/main/homepage/{{R.id}}/" class="d-flex justify-content-between">
+                                        <div class="pt-1">
+                                            <p class="fw-bold mb-0">{{R.subject}}</p>
+                                        </div>
+                                        <div class="pt-1">
+                                            <p class="text-muted mb-1">{{R.last_date}}</p>
+                                        </div>
+                                    </a>
+                                </li>
+                                {% endfor %}
+                                {% endif %}
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6 col-lg-7 col-xl-8">
+
+                    <ul class="list-unstyled">
+                        {% if sets %}
+                        {% for S in sets %}
+                        <!--Question 말풍선-->
+                        <li class="d-flex justify-content-between mb-4">
+                            <div class="card w-100">
+                                <div class="card-header d-flex justify-content-between p-3">
+                                    <p class="fw-bold mb-0">{{ user.username }}님</p>
+                                </div>
+                                <div class="card-body">
+                                    <p class="mb-0">
+                                        {{ S.Question.content }}
+                                    </p>
+                                </div>
+                            </div>
+                            <img src="https://w7.pngwing.com/pngs/81/570/png-transparent-profile-logo-computer-icons-user-user-blue-heroes-logo-thumbnail.png"
+                                alt="avatar" class="rounded-circle d-flex align-self-start ms-3 shadow-1-strong"
+                                width="60">
+                        </li>
+                        <!--Answer 말풍선-->
+                        <li class="d-flex justify-content-between mb-4">
+                            <img src="../../../static/favicon.png" alt="avatar"
+                                class="rounded-circle d-flex align-self-start me-3 shadow-1-strong" width="60">
+                            <div class="card w-100">
+                                <div class="card-header d-flex justify-content-between p-3">
+                                    <p class="fw-bold mb-0">JejuGPT</p>
+                                </div>
+                                <div class="card-body">
+                                    <p class="mb-0">
+                                        {{ S.Answer.content }}
+                                    </p>
+                                </div>
+                            </div>
+                        </li>
+                        {% endfor %}
+                        {% else %}
+                        <p>대화가 없습니다. 제주도 방언을 사용해 대화를 시작해 보세요.</p>
+                        {% endif %}
+                        <!--입력칸-->
+                        <form action="{% url 'homepage:question_send' chat_id %}" method="post">
+                            {% csrf_token %}
+                            <li class="bg-white mb-3">
+                                <div class="form-outline">
+                                    <textarea class="form-control" id="input_text" rows="4"
+                                        placeholder="질문을 입력해 보세요."></textarea>
+                                </div>
+                            </li>
+                            <button type="button" class="btn btn-info btn-rounded float-end">전송</button>
+                        </form>
+                    </ul>
+                    
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+</body>
+
+</html>

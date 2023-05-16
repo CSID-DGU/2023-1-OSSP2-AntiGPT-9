@@ -4,5 +4,6 @@ from . import views
 app_name = 'homepage'
 urlpatterns = [
     path('homepage/', views.home, name='homepage'),
-    path('homepage/<int:chatRoom_id>', views.home, name='chatroom')
+    path('homepage/<int:chatroom_id>/', views.chat, name='chatpage'),
+    path('homepage/question_send/<int:chatroom_id>/', views.question_send, name='question_send')
 ]

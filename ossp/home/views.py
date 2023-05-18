@@ -1,6 +1,8 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import timezone
 from .models import *
+import requests
+import json
 
 def home(request):
     chatList = ChatRoom.objects.order_by('last_date')
@@ -18,3 +20,20 @@ def question_send(request, chatroom_id):
     room.chatset_set.question.create()
     room.chatset_set.create()
     return redirect('home/chatpage.html')
+
+
+# api 통신, dialect String 입력, standard String 반환
+def api_commute(dialect):
+    # dialect seriallization
+    dialect_dict = {"dialect":f"{dialect}"}
+    request_dialect = json.dumps(dialect_dict)
+
+    # standard transfer, jeju model api request
+    standard = requests.post("http://34.83.150.5:8010/jeju", data=request_dialect)
+
+    # transfer json to dict, return standard string
+    standard = json.loads(standard)
+
+    return standard
+
+

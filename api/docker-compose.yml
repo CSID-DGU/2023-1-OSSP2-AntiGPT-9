@@ -1,0 +1,11 @@
+version: "3"
+
+
+services:
+  api:
+    build: .
+    image: api-api:latest
+    ports:
+      - "8010:8010"
+volumes:
+  data:

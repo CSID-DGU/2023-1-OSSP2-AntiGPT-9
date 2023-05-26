@@ -24,17 +24,36 @@
                   <img src="../../static/dark-logo.svg" width="180" alt="">
                 </a>
                 <p class="text-center">Your Social Campaigns</p>
+
+
+
+
+
                 <form method="post" action="{% url 'login:login' %}">
                   {% csrf_token %}
                   {% include 'login/error.html' %}
+                  {{ form.non_field_errors }}
+
+
+
                   <div class="mb-3">
-                    <label for="email" class="form-label">이메일</label>
-                    <input type="text" class="form-control" name="email" id="email">
+                    <label for="id_username" class="form-label">이메일</label>
+                    {{ form.username }}
                   </div>
+
+
+
                   <div class="mb-4">
-                    <label for="password" class="form-label">비밀번호</label>
-                    <input type="password" class="form-control" name="password" id="password">
+                    <label for="id_password1" class="form-label">비밀번호</label>
+                    {{ form.password }}
                   </div>
+
+
+
+
+
+
+
 
                   <div class="d-flex align-items-center justify-content-between mb-4">
                     <div class="form-check">
@@ -60,6 +79,12 @@
                       &nbsp;&nbsp;&nbsp;&nbsp;Google &nbsp;&nbsp;로그인</button>
                   </a>
                 </form>
+
+
+
+
+
+
               </div>
             </div>
           </div>

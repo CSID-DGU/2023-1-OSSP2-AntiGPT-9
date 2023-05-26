@@ -24,27 +24,41 @@
                   <img src="../../static/dark-logo.svg" width="180" alt="">
                 </a>
                 <p class="text-center">Your Social Campaigns</p>
+
+
+
+
+
                 <form method="post" action="{% url 'login:signup' %}">
                   {% csrf_token %}
                   {% include "login/error.html" %}
+                  {{ form.non_field_errors }}
 
                   <div class="mb-3">
-                    <label for="email" class="form-label">이메일</label>
-                    <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp">
+                    <label for="id_email" class="form-label">이메일</label>
+                    {{ form.email }}
                   </div>
+
                   <div class="mb-4">
-                    <label for="password1" class="form-label">비밀번호</label>
-                    <input type="password" class="form-control" name="password1" id="password1">
-                    </div>
-                  <div class="mb-4">
-                    <label for="password2" class="form-label">비밀번호 확인</label>
-                    <input type="password" class="form-control" name="password2" id="password2">
+                    <label for="id_password1" class="form-label">비밀번호</label>
+                    {{ form.password1 }}
                   </div>
+
+                  <div class="mb-4">
+                    <label for="id_password2" class="form-label">비밀번호 확인</label>
+                    {{ form.password2 }}
+                  </div>
+
                   <button type="submit" class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2">가입하기</button>
                   <div class="d-flex align-items-center justify-content-center">
                     <a class="text-primary fw-bold" href="{% url 'login:login' %}">로그인하기</a>
                   </div>
                 </form>
+
+
+
+
+
               </div>
             </div>
           </div>

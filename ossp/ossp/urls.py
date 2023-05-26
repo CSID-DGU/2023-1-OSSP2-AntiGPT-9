@@ -1,7 +1,8 @@
-"""ossp URL Configuration
+"""
+URL configuration for ossp project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/4.1/topics/http/urls/
+    https://docs.djangoproject.com/en/4.2/topics/http/urls/
 Examples:
 Function views
     1. Add an import:  from my_app import views
@@ -14,13 +15,12 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import include, path
+from django.urls import path, include
 
 urlpatterns = [
-    path('', include('initpage.urls')),
     path('admin/', admin.site.urls),
-    path('userlogin/', include('login.urls')),
-    path('main/', include('home.urls')),
-    path('social/', include('social_django.urls')),
-    # path('google/', include('login.urls')),
+    path('', include('initpage.urls')),                 # 초기 페이지
+    path('userlogin/', include('login.urls')),          # 로그인 페이지- 이메일 로그인
+    path('social/', include('social_django.urls')),     # 로그인 페이지- Google 로그인 API
+    path('main/', include('home.urls')),                # 메인 페이지 (채팅 페이지)
 ]

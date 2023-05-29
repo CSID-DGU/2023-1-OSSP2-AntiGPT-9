@@ -29,3 +29,13 @@ def login(request):
     else:
         form = MyAuthenticationForm()
     return render(request, 'login/login.html', {'form': form})
+
+def auth_allowed( backend, uid, user=None, *args, **kwargs):
+    
+    print("backend >>", backend)
+    print("uid >> ",  uid)
+    print("user >> ",  user)
+    print("args >> ",  args)
+    print("kwargs >> ",  kwargs)
+    
+    return redirect('http://127.0.0.1:8000/main/homepage/')

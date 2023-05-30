@@ -1,6 +1,6 @@
 from fastapi import APIRouter, HTTPException, status
 from ai.jeju import Jeju
-
+from model.sentence import Dialect
 from typing import Optional
 # 모델 실행
 model = Jeju
@@ -18,8 +18,11 @@ async def translator(dialect: Dialect) -> dict:
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="empty"
         )
+    # 번역
     standard = model.translate(model, dialect.dialect)
     print(f"'{standard}'")
+
+    # 반환(json)
     return {"standard": f"{standard}"}
 
 

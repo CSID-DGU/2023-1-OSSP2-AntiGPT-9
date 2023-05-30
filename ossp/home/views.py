@@ -3,6 +3,9 @@ from django.urls import reverse
 from django.utils import timezone
 from login.models import User
 from .models import *
+import requests
+import json
+
 
 def test(request):
     return render(request, 'home/chat.html')
@@ -45,3 +48,19 @@ def question_send(request, user_id, chatroom_id):
         ChatSet.objects.create(ChatRoom=room,Question=ques)
         url = reverse('homepage:chatpage',args=(user_id, room.id))
         return redirect(url)
+
+# api 통신, dialect String 입력, standard String 반환
+def api_commute(dialect):
+    # dialect seriallization
+    dialect_dict = {"dialect":f"{dialect}"}
+    request_dialect = json.dumps(dialect_dict)
+
+    # standard transfer, jeju model api request
+    standard = requests.post("http://4.194.73.164:8010/jeju", data=request_dialect)
+
+    # transfer json to dict, return standard string
+    standard = json.loads(standard)
+
+    return standard
+
+

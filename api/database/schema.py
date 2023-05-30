@@ -2,7 +2,7 @@ import datetime
 from pydantic import BaseModel
 
 
-class sentences(BaseModel):
+class sentence(BaseModel):
     id: int
     jeju: str
     standard: str

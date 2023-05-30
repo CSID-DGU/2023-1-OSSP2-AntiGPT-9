@@ -1,4 +1,5 @@
 from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import authenticate
 from django.contrib.auth.forms import AuthenticationForm
@@ -9,7 +10,7 @@ def signup(request):
         form = MyUserCreationForm(request.POST)
         if form.is_valid():
             user = form.save()
-            return redirect('http://127.0.0.1:8000/userlogin/auth/')
+            return redirect('login:login')
     else:
         form = MyUserCreationForm()
     return render(request, 'login/signup.html', {'form': form})
@@ -23,7 +24,8 @@ def login(request):
             user = authenticate(request, email=email, password=password)
             if user is not None:
                 auth_login(request, user)
-                return redirect('http://127.0.0.1:8000/main/homepage/')
+                url = reverse('homepage:homepage',args=[user.id])
+                return redirect(url)
             else:
                 form.add_error(None, 'Invalid email or password.')
     else:
@@ -38,4 +40,5 @@ def auth_allowed( backend, uid, user=None, *args, **kwargs):
     print("args >> ",  args)
     print("kwargs >> ",  kwargs)
     
-    return redirect('http://127.0.0.1:8000/main/homepage/')
+    url = reverse('homepage:homepage',args=[user.id])
+    return redirect(url)

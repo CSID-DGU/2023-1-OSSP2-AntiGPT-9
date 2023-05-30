@@ -1,20 +1,47 @@
-from django.shortcuts import render, get_object_or_404, redirect
+from django.shortcuts import render, redirect
+from django.urls import reverse
 from django.utils import timezone
+from login.models import User
 from .models import *
 
-def home(request):
-    chatList = ChatRoom.objects.order_by('last_date')
-    context = {'chatList':chatList}
+def test(request):
+    return render(request, 'home/chat.html')
+
+#로그인 후 사용자에게 할당된 첫 페이지(새 채팅)
+def home(request, user_id):
+    user_chatList = ChatRoom.objects.filter(user__id = user_id).order_by('-last_date')
+    # user_chatList = ChatRoom.objects.order_by('-last_date')
+    context = {'chatList':user_chatList, 'user_id':user_id}
     return render(request, 'home/homepage.html', context)
+#첫 질문
+def question_send_initial(request, user_id):
+    if request.method == 'POST':
+        input_text = request.POST['input_text'] #요청된 질문 문자열
+        ques = Question.objects.create(content=input_text)  #질문 객체 생성
+        subj = input_text   #질문 내용 그대로 제목 설정하고,
+        if len(subj) > 10:  #질문 내용 길이 10 초과부터 잘라내서 제목으로 사용
+            subj = subj[:10] + "..."
+        usr = User.objects.get(id = user_id)    #요청된 user_id에 해당하는 유저 객체 찾기
+        room = ChatRoom.objects.create(user=usr, subject=subj, last_date=timezone.now())    #앞선 유저, 제목 객체들을 인자로 모아서 현시간부로 새로운 방 생성
+        ChatSet.objects.create(ChatRoom=room, Question=ques) #새로운 방에 역참조되는 문답 객체 생성
+        url = reverse('homepage:chatpage',args=(user_id, room.id))
+        return redirect(url)
 
-def chat(request, chatroom_id):
-    chatList = ChatRoom.objects.order_by('last_date')
-    sets = ChatRoom.objects.get(id = chatroom_id).chatset_set.all()
-    context = {'chatList':chatList, 'sets':sets, 'chat_id':chatroom_id}
+#=================================================================================
+
+#존재하는 채팅방에 대한 페이지
+def chat(request, user_id, chatroom_id):
+    user_chatList = ChatRoom.objects.filter(user__id = user_id).order_by('-last_date')
+    sets = ChatRoom.objects.get(user__id = user_id, id=chatroom_id).chatset_set.all()
+    context = {'chatList':user_chatList, 'user_id':user_id, 'sets':sets, 'chat_id':chatroom_id}
     return render(request, 'home/chatpage.html', context)
-
-def question_send(request, chatroom_id):
-    room = get_object_or_404(ChatRoom, pk=chatroom_id)
-    room.chatset_set.question.create()
-    room.chatset_set.create()
-    return redirect('home/chatpage.html')
+#존재하는 채팅방에 대한 추가 질문
+def question_send(request, user_id, chatroom_id):
+    if request.method == 'POST':
+        input_text = request.POST['input_text']
+        ques = Question.objects.create(content=input_text)
+        room = ChatRoom.objects.get(user__id = user_id, id=chatroom_id)
+        room.last_date=timezone.now()
+        ChatSet.objects.create(ChatRoom=room,Question=ques)
+        url = reverse('homepage:chatpage',args=(user_id, room.id))
+        return redirect(url)

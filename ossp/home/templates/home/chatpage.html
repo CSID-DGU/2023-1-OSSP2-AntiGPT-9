@@ -11,14 +11,11 @@
 </head>
 
 <body>
-    {% if user.is_authenticated %}
-    <a class="mark" href="{% url 'login:logout' %}">{{ user.username }}님 로그아웃</a>
-    {% else %}
-    <a class="mark" href="{% url 'login:login' %}">로그인</a>
-    <a class="mark" href="{% url 'login:signup' %}">회원가입</a>
-    {% endif %}
 
-    <section style="background-color: #eee;">
+    <div class="container-fluid" style="background-color: #eee;">
+        {% if user.is_authenticated %}
+        <p class="mark">{{ user.email }}님 환영합니다.</p>
+        <a class="btn btn-primary" href="{% url 'login:logout' %}">로그아웃</a>
         <div class="container py-5">
 
             <div class="row">
@@ -32,9 +29,9 @@
                             <ul class="list-unstyled mb-0">
                                 <!--새 채팅 버튼-->
                                 <li class="p-2 border-bottom">
-                                    <a href="/main/homepage/" class="d-flex justify-content-between">
+                                    <a href="{% url 'homepage:homepage' user_id=user_id %}" class="d-flex justify-content-between">
                                         <div class="pt-1">
-                                            <p class="fw-bold mb-0">+ New Chat</p>
+                                            <i class="fw-bold mb-0">+ 새로운 채팅 시작</i>
                                         </div>
                                     </a>
                                 </li>
@@ -42,12 +39,12 @@
                                 {% if chatList %}
                                 {% for R in chatList %}
                                 <li class="p-2 border-bottom"{% if R.id == chat_id %}style="background-color: #eee;"{% endif %}>
-                                    <a href="/main/homepage/{{R.id}}/" class="d-flex justify-content-between">
+                                    <a href="/main/{{user_id}}/{{R.id}}/" class="d-flex justify-content-between">
                                         <div class="pt-1">
                                             <p class="fw-bold mb-0">{{R.subject}}</p>
                                         </div>
                                         <div class="pt-1">
-                                            <p class="text-muted mb-1">{{R.last_date}}</p>
+                                            <p class="text-muted mb-1">{{ R.last_date|date:'Y/m/d' }} {{ R.last_date|time:'H:i' }}</p>
                                         </div>
                                     </a>
                                 </li>
@@ -62,6 +59,7 @@
                 <div class="col-md-6 col-lg-7 col-xl-8">
 
                     <ul class="list-unstyled">
+                        {% block content %}
                         {% if sets %}
                         {% for S in sets %}
                         <!--Question 말풍선-->
@@ -100,15 +98,16 @@
                         <p>대화가 없습니다. 제주도 방언을 사용해 대화를 시작해 보세요.</p>
                         {% endif %}
                         <!--입력칸-->
-                        <form action="{% url 'homepage:question_send' chat_id %}" method="post">
+                        <form action="{% url 'homepage:question_send' user_id=user_id chatroom_id=chat_id %}" method="post">
+                            {% endblock %}
                             {% csrf_token %}
                             <li class="bg-white mb-3">
                                 <div class="form-outline">
-                                    <textarea class="form-control" id="input_text" rows="4"
+                                    <textarea class="form-control" name="input_text" rows="4"
                                         placeholder="질문을 입력해 보세요."></textarea>
                                 </div>
                             </li>
-                            <button type="button" class="btn btn-info btn-rounded float-end">전송</button>
+                            <button type="submit" class="btn btn-info btn-rounded float-end">전송</button>
                         </form>
                     </ul>
                     
@@ -117,8 +116,13 @@
             </div>
 
         </div>
-    </section>
+
+        {% else %}
+        <script>
+            window.location.href ="{% url 'login:logout' %}"
+        </script>
+    {% endif %}
+    </div>
 
 </body>
-
 </html>

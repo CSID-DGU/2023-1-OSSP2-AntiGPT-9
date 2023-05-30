@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, Http404
 from django.urls import reverse
 from django.utils import timezone
 from login.models import User
@@ -10,10 +10,21 @@ import json
 def test(request):
     return render(request, 'home/chat.html')
 
+def room_delete(request, user_id, del_id):
+    if request.method == 'POST':
+        target = ChatRoom.objects.filter(user__id=user_id, id=del_id)
+        
+        if target:
+            target.delete()
+            url = reverse('homepage:homepage',args=[user_id])
+            return redirect(url)
+        else:
+            raise Http404("No such object")
+#=================================================================================
+
 #로그인 후 사용자에게 할당된 첫 페이지(새 채팅)
 def home(request, user_id):
     user_chatList = ChatRoom.objects.filter(user__id = user_id).order_by('-last_date')
-    # user_chatList = ChatRoom.objects.order_by('-last_date')
     context = {'chatList':user_chatList, 'user_id':user_id}
     return render(request, 'home/homepage.html', context)
 #첫 질문
@@ -48,6 +59,8 @@ def question_send(request, user_id, chatroom_id):
         ChatSet.objects.create(ChatRoom=room,Question=ques)
         url = reverse('homepage:chatpage',args=(user_id, room.id))
         return redirect(url)
+
+#=================================================================================
 
 # api 통신, dialect String 입력, standard String 반환
 def api_commute(dialect):

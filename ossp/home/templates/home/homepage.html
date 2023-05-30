@@ -1,5 +1,7 @@
 {% extends 'home/chatpage.html' %}
 {% block content %}
-<p class="p-3">제주 방언으로 질문을 입력하여 새로운 대화 시작하기</p>
+<div class="chat-messages">
+    <h1>(뭔가 초기 페이지에서 제공할 정보)</h1>
+  </div>
 <form action="{% url 'homepage:question_send_initial' user_id=user_id%}" method="post">
 {% endblock %}

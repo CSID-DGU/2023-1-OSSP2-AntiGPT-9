@@ -1,128 +1,123 @@
-<!DOCTYPE html>
-<html lang="ko">
-
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JejuGPT home</title>
-    <link rel="stylesheet" href="../../../static/bootstrap.min.css" />
-    <link rel="stylesheet" href="../../../static/Noto-Sans-KR.css" />
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JejuGPT home</title>
+  
+  {% comment %} <link rel="stylesheet" href="../../../static/bootstrap.min.css"> {% endcomment %}
+  <link rel="stylesheet" type="text/css" href="../../../static/style_chat.css">
+  {% comment %}
+  <link rel="stylesheet" href="../../../static/Noto-Sans-KR.css" /> {% endcomment %}
+  <link rel="shortcut icon" type="image/png" href="../../../static/favicon.png" />
+  
 </head>
 
 <body>
+  {% if user.is_authenticated %}
+  <div class="chat-container">
+    <nav class="nav-bar">
+      <div class="logo"><a href="#">Jeju GPT</a></div>
+      {% if chatList %}
+      {% for R in chatList %}
+      {% if R.id == chat_id %}
+      <div class="profile">{{R.subject}}</div>
+      {% endif %}
+      {% endfor %}
+      {% endif %}
+      <div class="profile"><a href="{% url 'login:logout' %}">Logout</a></div>
+    </nav>
+    <div class="chat-wrapper">
+      <div class="chat-sidebar">
+        <div class="chat-header">
+        </div>
+        <ul class="chat-list">
 
-    <div class="container-fluid" style="background-color: #eee;">
-        {% if user.is_authenticated %}
-        <p class="mark">{{ user.email }}님 환영합니다.</p>
-        <a class="btn btn-primary" href="{% url 'login:logout' %}">로그아웃</a>
-        <div class="container py-5">
+          <li><strong><a href="{% url 'homepage:homepage' user_id=user_id %}" class="new-chat">+ &nbsp;새 채팅 시작하기</a></strong></li>
+          {% if chatList %}
+          {% for R in chatList %}
+          <li {% if R.id == chat_id %}class="active"{% endif %}>
+            <div class="chat-obj-div">
+              <a href="/main/{{user_id}}/{{R.id}}/">{{R.subject}}</a>
+              <form action="{% url 'homepage:room_delete' user_id=user_id del_id=R.id%}" method="POST">
+                {% csrf_token %}
+              <button class="chat-obj-btn">×</button>
+              </form>
+            </div>
+          </li>
+          <!--기존에 있던 수정 날짜 context-->
+          <!--
+          {{ R.last_date|date:'Y/m/d' }} {{ R.last_date|time:'H:i' }}
+          -->
+          {% endfor %}
+          {% endif %}
+        </ul>
+        <div class="options">
+          <img src="../../../static/settings.png" width="30px">
+          <img src="../../../static/dol.png" width="38px">
+          <img src="../../../static/moon_white.png" width="35px">
+        </div>
+      </div>
 
-            <div class="row">
 
-                <div class="col-md-6 col-lg-5 col-xl-4 mb-4 mb-md-0">
+      <div class="chat-content">
+        {% block content %}
+        {% if sets %}
+        {% for S in sets %}
+        <div class="chat-messages">
 
-                    <h5 class="font-weight-bold mb-3 text-center text-lg-start">채팅 목록</h5>
+          <div class="chat-message">
+            <div class="message received">
+              <div class="message-content">
+                <img src="../../../static/zzang_gu.jfif" class="user-image">
+                <p>{{ user.email }} : {{ S.Question.content }}</p>
+              </div>
 
-                    <div class="card">
-                        <div class="card-body">
-                            <ul class="list-unstyled mb-0">
-                                <!--새 채팅 버튼-->
-                                <li class="p-2 border-bottom">
-                                    <a href="{% url 'homepage:homepage' user_id=user_id %}" class="d-flex justify-content-between">
-                                        <div class="pt-1">
-                                            <i class="fw-bold mb-0">+ 새로운 채팅 시작</i>
-                                        </div>
-                                    </a>
-                                </li>
-                                <!--채팅목록 생성코드-->
-                                {% if chatList %}
-                                {% for R in chatList %}
-                                <li class="p-2 border-bottom"{% if R.id == chat_id %}style="background-color: #eee;"{% endif %}>
-                                    <a href="/main/{{user_id}}/{{R.id}}/" class="d-flex justify-content-between">
-                                        <div class="pt-1">
-                                            <p class="fw-bold mb-0">{{R.subject}}</p>
-                                        </div>
-                                        <div class="pt-1">
-                                            <p class="text-muted mb-1">{{ R.last_date|date:'Y/m/d' }} {{ R.last_date|time:'H:i' }}</p>
-                                        </div>
-                                    </a>
-                                </li>
-                                {% endfor %}
-                                {% endif %}
-
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-md-6 col-lg-7 col-xl-8">
-
-                    <ul class="list-unstyled">
-                        {% block content %}
-                        {% if sets %}
-                        {% for S in sets %}
-                        <!--Question 말풍선-->
-                        <li class="d-flex justify-content-between mb-4">
-                            <div class="card w-100">
-                                <div class="card-header d-flex justify-content-between p-3">
-                                    <p class="fw-bold mb-0">{{ user.username }}님</p>
-                                </div>
-                                <div class="card-body">
-                                    <p class="mb-0">
-                                        {{ S.Question.content }}
-                                    </p>
-                                </div>
-                            </div>
-                            <img src="https://w7.pngwing.com/pngs/81/570/png-transparent-profile-logo-computer-icons-user-user-blue-heroes-logo-thumbnail.png"
-                                alt="avatar" class="rounded-circle d-flex align-self-start ms-3 shadow-1-strong"
-                                width="60">
-                        </li>
-                        <!--Answer 말풍선-->
-                        <li class="d-flex justify-content-between mb-4">
-                            <img src="../../../static/favicon.png" alt="avatar"
-                                class="rounded-circle d-flex align-self-start me-3 shadow-1-strong" width="60">
-                            <div class="card w-100">
-                                <div class="card-header d-flex justify-content-between p-3">
-                                    <p class="fw-bold mb-0">JejuGPT</p>
-                                </div>
-                                <div class="card-body">
-                                    <p class="mb-0">
-                                        {{ S.Answer.content }}
-                                    </p>
-                                </div>
-                            </div>
-                        </li>
-                        {% endfor %}
-                        {% else %}
-                        <p>대화가 없습니다. 제주도 방언을 사용해 대화를 시작해 보세요.</p>
-                        {% endif %}
-                        <!--입력칸-->
-                        <form action="{% url 'homepage:question_send' user_id=user_id chatroom_id=chat_id %}" method="post">
-                            {% endblock %}
-                            {% csrf_token %}
-                            <li class="bg-white mb-3">
-                                <div class="form-outline">
-                                    <textarea class="form-control" name="input_text" rows="4"
-                                        placeholder="질문을 입력해 보세요."></textarea>
-                                </div>
-                            </li>
-                            <button type="submit" class="btn btn-info btn-rounded float-end">전송</button>
-                        </form>
-                    </ul>
-                    
-                </div>
 
             </div>
+          </div>
+
+
+          <div class="chat-message">
+            <div class="message sent">
+              <div class="message-content">
+                <img src="../../../static/favicon.png" class="favicon-image">
+                <p>{{ S.Answer.content }}</p>
+              </div>
+
+              <div class="feedback">
+                <a href="#"><img src="../../../static/good.png" class="good"></a>
+                <a href="#"><img src="../../../static/bad.png" class="bad"></a>
+              </div>
+            </div>
+          </div>
+
 
         </div>
-
+        {% endfor %}
         {% else %}
-        <script>
-            window.location.href ="{% url 'login:logout' %}"
-        </script>
-    {% endif %}
-    </div>
+        <!--기존 채팅방인데도 채팅이 없는 경우-->
+        <div class="chat-messages">
+          <h1>채팅이 없습니다! 첫 질문을 하시거나, 채팅방을 삭제해 주세요.</h1>
+        </div>
+        {% endif %}
 
+        <!--채팅창 텍스트박스-->
+        <form action="{% url 'homepage:question_send' user_id=user_id chatroom_id=chat_id %}" method="post">
+          {% endblock %}
+          {% csrf_token %}
+          <div class="new-chat-input">
+            <input type="text" name="input_text" placeholder="아맹이나 고라봅써" />
+            <button type="submit" id="send-button"><img src="../../../static/submit.png" alt="Submit"></button>
+          </div>
+        </form>
+        
+
+
+      </div>
+    </div>
+    {% else %}
+    <script>
+      window.location.href = "{% url 'login:logout' %}"
+    </script>
+    {% endif %}
 </body>
-</html>

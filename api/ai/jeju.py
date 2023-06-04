@@ -58,7 +58,7 @@ class Jeju:
 
     model = EncoderDecoderModel.from_pretrained('leadawon/ossp-v0_3')
     model.eval()
-    model.config.decoder_start_token_id = trg_tokenizer.bos_token_idㅔ2
+    model.config.decoder_start_token_id = trg_tokenizer.bos_token_id
 
     def translate(self, text):
         embeddings = self.src_tokenizer(text, return_attention_mask=False, return_token_type_ids=False, return_tensors='pt')

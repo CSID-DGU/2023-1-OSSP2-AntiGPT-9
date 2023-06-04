@@ -62,18 +62,15 @@ def question_send(request, user_id, chatroom_id):
 
 #=================================================================================
 
+
 # api 통신, dialect String 입력, standard String 반환
 def api_commute(dialect):
-    # dialect seriallization
+    # dialect serialization
     dialect_dict = {"dialect":f"{dialect}"}
     request_dialect = json.dumps(dialect_dict)
 
     # standard transfer, jeju model api request
-    standard = requests.post("http://4.194.73.164:8010/jeju", data=request_dialect)
+    response = requests.post("http://4.194.73.164:8010/jeju", data=request_dialect)
 
-    # transfer json to dict, return standard string
-    standard = json.loads(standard)
-
-    return standard
-
+    return response.json()["standard"]
 

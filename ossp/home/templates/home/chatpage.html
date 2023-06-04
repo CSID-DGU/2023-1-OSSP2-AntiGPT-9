@@ -62,8 +62,9 @@
       <div class="chat-content">
         {% block content %}
         {% if sets %}
-        {% for S in sets %}
+        
         <div class="chat-messages">
+        {% for S in sets %}
 
           <div class="chat-message">
             <div class="message received">
@@ -92,8 +93,9 @@
           </div>
 
 
-        </div>
+
         {% endfor %}
+      </div>
         {% else %}
         <!--기존 채팅방인데도 채팅이 없는 경우-->
         <div class="chat-messages">

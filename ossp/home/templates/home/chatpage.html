@@ -5,7 +5,7 @@
   <title>JejuGPT</title>
   
   {% comment %} <link rel="stylesheet" href="../../../static/bootstrap.min.css"> {% endcomment %}
-  <link rel="stylesheet" type="text/css" href="../../../static/style_chat.css">
+  <link rel="stylesheet" type="text/css" href="../../../static/style_chat.css?after">
   {% comment %}
   <link rel="stylesheet" href="../../../static/Noto-Sans-KR.css" /> {% endcomment %}
   <link rel="shortcut icon" type="image/png" href="../../../static/favicon.png" />
@@ -36,10 +36,13 @@
           {% for R in chatList %}
           <li {% if R.id == chat_id %}class="active"{% endif %}>
             <div class="chat-obj-div">
-              <a href="/main/{{user_id}}/{{R.id}}/">{{R.subject}}</a>
-              <form action="{% url 'homepage:room_delete' user_id=user_id del_id=R.id%}" method="POST">
+              <a href="/main/{{user_id}}/{{R.id}}/" class="R_subject">{{R.subject}}</a>
+              
+              <form action="{% url 'homepage:room_delete' user_id=user_id del_id=R.id%}" method="POST" class="R_subject2">
                 {% csrf_token %}
-              <button class="chat-obj-btn">×</button>
+                <div class="chat_button">
+                  <button><img src="../../../static/trash.png" alt="Delete"></button>
+                </div>
               </form>
             </div>
           </li>

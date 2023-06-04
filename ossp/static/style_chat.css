@@ -221,3 +221,46 @@ a:hover {
   padding-right: 10px;
   vertical-align: middle;
 }
+
+
+
+
+
+.chat-obj-div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.R_subject {
+  flex: 1;
+  margin-right: 10px;
+}
+
+.R_subject2 {
+  margin: 0;
+  padding: 0;
+}
+
+.chat_button {
+  flex-shrink: 0;
+  width: 20px;
+  height: 20px;
+}
+
+.chat_button button {
+  border: none;
+  background-color: transparent;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.chat_button button img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}

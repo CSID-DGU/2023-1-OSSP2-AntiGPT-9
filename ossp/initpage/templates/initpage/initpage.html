@@ -1,53 +1,67 @@
-<!doctype html>
-<html lang="en">
-
+<!DOCTYPE html>
+<html lang="ko">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Welcome to JejuGPT</title>
-  <link rel="shortcut icon" type="image/png" href="../../static/favicon.png" />
-  <link rel="stylesheet" href="../../static/bootstrap.min.css" />
-  <!-- 폰트 css를 bootstrap css이후에 덮어써야 폰트 잘 나옵니다!! -->
-  <link rel="stylesheet" href="../../static/Noto-Sans-KR.css" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css">
-  <script src="../../static/bootstrap.bundle.js"></script>
+  <meta charset="UTF-8">
+  <title>JejuGPT</title>
+  <link rel="stylesheet" type="text/css" href="../../static/new_style.css">
 </head>
 
 <body>
-  <!--  Body Wrapper -->
-  <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
-    data-sidebar-position="fixed" data-header-position="fixed">
-    <div
-      class="position-relative overflow-hidden radial-gradient min-vh-100 d-flex align-items-center justify-content-center">
-      <div class="d-flex align-items-center justify-content-center w-100">
-        <div class="row justify-content-center w-100">
-          <div class="col-md-8 col-lg-6 col-xxl-3">
-            <div class="card bg-transparent shadow-none">
-              <div class="card-body">
-                <a href="/" class="text-nowrap logo-img text-center d-block py-3 w-100">
-                  <img src="../../static/dark-logo.svg" width="180" alt="">
-                </a>
-                <p class="text-center">JejuGPT는 제주 방언을 표준어로 의미 번역하는 언어 처리 모델을 ChatGPT에 적용한 서비스입니다.</p>
-                <div class="d-flex gap-4 align-items-center justify-content-between">
-                  <button type="submit" class="btn btn-primary py-8 w-30 fs-4 mb-4 rounded-2" style="width: 40%; margin: auto;"
-                    onclick="location.href='/userlogin/auth/'">로그인</button>
-                </div>
-                <div class="d-flex align-items-center justify-content-center">
-                  <p class="fs-4 mb-0 fw-bold">JejuGPT 이용이 처음이시면</p>
-                  <a class="fs-4 text-primary fw-bold ms-2" href="{% url 'login:signup' %}">회원가입</a>
-                </div>
-              </div>
+    <div class="page">
+        <div class="first">
+            <div class="logo">
+                <img src="../../static/palm_tree_2.gif" class="palm_tree_2">
+                <p>제주 방언이 가능한</p>
+                <p>AI 챗봇 서비스</p>
+                <p>JejuGPT</p>
+                <img src="../../static/chatbot.gif" class="chatbot">
+                <img src="../../static/shell.gif" class="shell">
             </div>
-          </div>
+            <div class="menu">
+                <ul>
+                    <li><a href="http://127.0.0.1:8000/userlogin/auth/">JejuGPT 이용하기&nbsp<img src="../../static/arrow.png" width="20px"></a></li>
+                    <li><a href="#second">JejuGPT 알아보기&nbsp<img src="../../static/arrow.png" width="20px"></a></li>
+                    <br>
+                    <li><a href="#">오늘의 제주 방언&nbsp<img src="../../static/arrow.png" width="20px"></a></li>
+                </ul>
+            </div>
         </div>
-      </div>
-    </div>
-  </div>
-  <!-- 기타 js 기존 경로 -->
-  <!-- <script src="../assets/libs/jquery/dist/jquery.min.js"></script>
-  <script src="../assets/js/sidebarmenu.js"></script>
-  <script src="../assets/js/app.min.js"></script>
-  <script src="../assets/libs/simplebar/dist/simplebar.js"></script> -->
-</body>
 
-</html>
+        <div class="second" id="second">
+            <p class="title">"무신 거옌 고람 신디 몰르쿠게?"</p>
+            <img src="../../static/question_mark.gif" class="question_mark">
+            <br>
+            <p>"무신 거옌 고람 신디 몰르쿠게?"는 "뭐라고 하는지 모르겠죠?"라는 뜻을 가진 우리의 아름다운 제주 방언입니다.</p>
+            <p>ChatGPT와 같은 대화형 인공지능 챗봇이 우리의 일상 속에서 차지하는 비중이 높아져 가고 있는 오늘날,</p>
+            <p>우리의 방언 데이터를 학습하지 못한 ChatGPT는 아름다운 우리의 방언을 아예 <strong>다른 국가의 언어로 인식</strong>하기도 합니다.</p>
+            <br>
+            <p>한국형 대화형 인공지능 챗봇이 부재한 오늘,</p>
+            <p>대화형 인공지능 챗봇이 우리의 아름다운 방언을 정확히 알아듣고</p>
+            <p>제대로 된 답변을 내놓을 수 있으면 좋겠다는 소망에서 탄생한 것이 바로 <strong>JejuGPT</strong>입니다.</p>
+            <img src="../../static/ai.gif" class="ai">
+            <img src="../../static/dol2.gif" class="dol2">
+        </div>
+
+        <div class="third">
+            <img src="../../static/airplane.gif" class="airplane">
+            <img src="../../static/beach.gif" class="beach">
+            <p class="title">JejuGPT는 이렇게 만들어졌습니다.</p>
+            <br>
+            <p>제주특별자치도 공식 홈페이지에서 제공하는 방언 사전과 AIHub의 한국어 방언 발화(제주도) 데이터를 이용해</p>
+            <p>KoBERT 토크나이저를 다시 학습시켜 <strong>제주 방언-표준어 번역 AI 모델</strong>을 구현하였습니다.</p>
+            <br>
+            <p>이렇게 만들어진 AI 모델은 사용자로부터 입력받은 제주 방언을 전달받아 표준어로 번역하고, 표준어로 번역된 문장은 ChatGPT로 전달됩니다.</p>
+            <p>JejuGPT는 이러한 일련의 과정을 거쳐 사용자의 제주 방언 질문에 적절한 표준어 답변을 전달하는 <strong>AI 챗봇 서비스</strong>입니다.</p>
+            <img src="../../static/palm_tree.gif" class="palm_tree">
+        </div>
+
+        <hr>
+
+        <div class="fourth">
+            <p class="title">Contributors</p>
+            <br><br><br>
+            <p>동국대학교 컴퓨터 공학과</p>
+            <p>이다원, 조현성, 송민하, 서민규, 장재혁</p>
+        </div>
+    </div>
+</body>

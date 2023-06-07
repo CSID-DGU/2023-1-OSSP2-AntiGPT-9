@@ -1,5 +1,7 @@
 from django.shortcuts import render, redirect
 from django.urls import reverse
+from django.core import signing
+from home.views import get_encrypted_url
 from django.contrib.auth import login as auth_login
 from django.contrib.auth import authenticate
 from django.contrib.auth.forms import AuthenticationForm
@@ -25,7 +27,7 @@ def login(request):
             if user is not None:
                 auth_login(request, user)
                 url = reverse('homepage:homepage',args=[user.id])
-                return redirect(url)
+                return redirect(reverse('homepage:process') + get_encrypted_url(url))
             else:
                 form.add_error(None, 'Invalid email or password.')
     else:
@@ -41,4 +43,4 @@ def auth_allowed( backend, uid, user=None, *args, **kwargs):
     print("kwargs >> ",  kwargs)
     
     url = reverse('homepage:homepage',args=[user.id])
-    return redirect(url)
+    return redirect(reverse('homepage:process') + get_encrypted_url(url))

@@ -6,12 +6,27 @@
       <p>궁금한 내용을 제주 방언으로 입력해주시면 질문에 대한 ChatGPT의 표준어 답변을 제공해드립니다.</p>
       <p>어떻게 시작해야 할 지 모르겠다면 다음 예를 참고해보세요.</p>
       <br>
-      <a href="#">(예시) 오늘 점심에 무신거 먹젠 마씸?</a>
-      <br><br>
-      <a href="#">(예시) 어디 갔당 왐수꽈?</a>
-      <br><br>
-      <a href="#">(예시) 서울 가문 어디가 좋으코?</a>
+      <form id="form1" action="{% url 'homepage:question_send_initial' user_id=user_id%}" method="post">
+        {% csrf_token %}
+        <a onclick="submitForm('form1')"><input type="hidden" name="input_text" value="오늘 점심에 무신거 먹젠 마씸?">(예시) 오늘 점심에 무신거 먹젠 마씸?</a>
+      </form>
+      <br>
+      <form id="form2" action="{% url 'homepage:question_send_initial' user_id=user_id%}" method="post">
+        {% csrf_token %}
+        <a onclick="submitForm('form2')"><input type="hidden" name="input_text" value="어디 갔당 왐수꽈?">(예시) 어디 갔당 왐수꽈?</a>
+      </form>
+      <br>
+      <form id="form3" action="{% url 'homepage:question_send_initial' user_id=user_id%}" method="post">
+        {% csrf_token %}
+        <a onclick="submitForm('form3')"><input type="hidden" name="input_text" value="서울 가문 어디가 좋으코?">(예시) 서울 가문 어디가 좋으코?</a>
+      </form>
     </div>
 </div>
+<script>
+  function submitForm(formId) {
+    const formElement = document.getElementById(formId);
+    formElement.submit();
+  }
+</script>
 <form action="{% url 'homepage:question_send_initial' user_id=user_id%}" method="post">
 {% endblock %}

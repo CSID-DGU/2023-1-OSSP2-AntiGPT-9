@@ -163,7 +163,7 @@ strong {
     width: 100px;
     
     position: absolute;
-    left: 1100px;
+    left: 1150px;
     top: 1430px;
 
     z-index: -1;
@@ -197,8 +197,8 @@ strong {
     width: 120px;
     
     position: absolute;
-    left: 200px;
-    top: 1800px;
+    left: 150px;
+    top: 1900px;
 
     z-index: -1;
 }

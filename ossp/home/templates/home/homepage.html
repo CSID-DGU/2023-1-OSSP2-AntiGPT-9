@@ -1,7 +1,17 @@
 {% extends 'home/chatpage.html' %}
 {% block content %}
+<link rel="stylesheet" type="text/css" href="../../../static/style_chat.css">
 <div class="chat-messages">
-    <h1>(뭔가 초기 페이지에서 제공할 정보)</h1>
-  </div>
+    <div class="hp">
+      <p>궁금한 내용을 제주 방언으로 입력해주시면 질문에 대한 ChatGPT의 표준어 답변을 제공해드립니다.</p>
+      <p>어떻게 시작해야 할 지 모르겠다면 다음 예를 참고해보세요.</p>
+      <br>
+      <a href="#">(예시) 오늘 점심에 무신거 먹젠 마씸?</a>
+      <br><br>
+      <a href="#">(예시) 어디 갔당 왐수꽈?</a>
+      <br><br>
+      <a href="#">(예시) 서울 가문 어디가 좋으코?</a>
+    </div>
+</div>
 <form action="{% url 'homepage:question_send_initial' user_id=user_id%}" method="post">
 {% endblock %}

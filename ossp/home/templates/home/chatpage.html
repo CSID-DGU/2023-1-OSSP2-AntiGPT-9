@@ -2,21 +2,20 @@
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>JejuGPT home</title>
+  <title>JejuGPT</title>
   
   {% comment %} <link rel="stylesheet" href="../../../static/bootstrap.min.css"> {% endcomment %}
   <link rel="stylesheet" type="text/css" href="../../../static/style_chat.css">
   {% comment %}
   <link rel="stylesheet" href="../../../static/Noto-Sans-KR.css" /> {% endcomment %}
   <link rel="shortcut icon" type="image/png" href="../../../static/favicon.png" />
-  
 </head>
 
 <body>
   {% if user.is_authenticated %}
   <div class="chat-container">
     <nav class="nav-bar">
-      <div class="logo"><a href="#">Jeju GPT</a></div>
+      <div class="logo"><a href="/">Jeju GPT</a></div>
       {% if chatList %}
       {% for R in chatList %}
       {% if R.id == chat_id %}
@@ -37,10 +36,13 @@
           {% for R in chatList %}
           <li {% if R.id == chat_id %}class="active"{% endif %}>
             <div class="chat-obj-div">
-              <a href="/main/{{user_id}}/{{R.id}}/">{{R.subject}}</a>
-              <form action="{% url 'homepage:room_delete' user_id=user_id del_id=R.id%}" method="POST">
+              <a href="/main/{{user_id}}/{{R.id}}/" class="R_subject">{{R.subject}}</a>
+              
+              <form action="{% url 'homepage:room_delete' user_id=user_id del_id=R.id%}" method="POST" class="R_subject2">
                 {% csrf_token %}
-              <button class="chat-obj-btn">×</button>
+                <div class="chat_button">
+                  <button><img src="../../../static/trash.png" alt="Delete"></button>
+                </div>
               </form>
             </div>
           </li>
@@ -52,9 +54,9 @@
           {% endif %}
         </ul>
         <div class="options">
-          <img src="../../../static/settings.png" width="30px">
-          <img src="../../../static/dol.png" width="38px">
-          <img src="../../../static/moon_white.png" width="35px">
+          <img src="../../../static/settings.png" width="32px">
+          <img src="../../../static/moon_black.png" width="30px">
+          <img src="../../../static/dol.png" width="30px">
         </div>
       </div>
 
@@ -62,8 +64,9 @@
       <div class="chat-content">
         {% block content %}
         {% if sets %}
-        {% for S in sets %}
+        
         <div class="chat-messages">
+        {% for S in sets %}
 
           <div class="chat-message">
             <div class="message received">
@@ -92,8 +95,9 @@
           </div>
 
 
-        </div>
+
         {% endfor %}
+      </div>
         {% else %}
         <!--기존 채팅방인데도 채팅이 없는 경우-->
         <div class="chat-messages">
@@ -107,7 +111,7 @@
           {% csrf_token %}
           <div class="new-chat-input">
             <input type="text" name="input_text" placeholder="아맹이나 고라봅써" />
-            <button type="submit" id="send-button"><img src="../../../static/submit.png" alt="Submit"></button>
+            <button type="submit" id="send-button"><img src="../../../static/submit2.png" alt="Submit"></button>
           </div>
         </form>
         

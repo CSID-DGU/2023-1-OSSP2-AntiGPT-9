@@ -1,0 +1,232 @@
+@font-face {
+    font-family: 'ChosunCentennial';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2206-02@1.0/ChosunCentennial.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'SUIT-Regular';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_suit@1.0/SUIT-Regular.woff2') format('woff2');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/*
+.page {
+    width: 1280px;
+    height: 800px;
+}
+*/
+
+/*FIRST*/
+
+strong {
+    color: #289E9E;
+}
+
+.first {
+    width: 1440px;
+    height: 700px;
+}
+
+.logo {
+    font-family: 'ChosunCentennial';
+    font-size: 50px;
+    font-weight: 700;
+    line-height: 70%;
+
+    width: 395px;
+    height: 305px;
+
+    position: absolute;
+    left: 200px;
+    top: 280px;
+}
+
+.logo .palm_tree_2 {
+    width: 130px;
+
+    position: absolute;
+    left: -100px;
+    top: -50px;
+
+    z-index: -1;
+}
+
+.logo .chatbot {
+    width: 130px;
+
+    position: absolute;
+    left: 200px;
+    top: 210px;
+}
+
+.logo .shell {
+    width: 200px;
+
+    position: absolute;
+    left: 1000px;
+    top: 360px;
+}
+
+.menu {
+    font-family: 'SUIT-Regular';
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 170%;
+
+    width: 297.85px;
+    height: 264spx;
+
+    position: absolute;
+    left: 900px;
+    top: 310px;
+}
+
+.menu li {
+    list-style-type: none;
+}
+
+.menu a {
+    color: black;
+    text-decoration-line: none;
+}
+
+.menu a:hover {
+    color: #289E9E;
+}
+
+/*SECOND*/
+
+.second {
+    text-align: center;
+
+    width: 1440px;
+    height: 700px;
+}
+
+.second .question_mark {
+    width: 90px;
+
+    position: absolute;
+    left: 450px;
+    top: 870px;
+
+    z-index: -1;
+}
+
+.second .title {
+    font-family: 'ChosunCentennial';
+    font-size: 30px;
+    font-weight: 700;
+
+    padding-top: 200px;
+}
+
+.second p {
+    font-family: 'SUIT-Regular';
+    font-size: 20px;
+    line-height: 70%;
+}
+
+.second .ai {
+    width: 80px;
+    
+    position: absolute;
+    left: 1060px;
+    top: 1170px;
+
+    z-index: -1;
+}
+
+.second .dol2 {
+    width: 120px;
+    
+    position: absolute;
+    left: 200px;
+    top: 1300px;
+
+    z-index: -1;
+}
+
+/*THIRD*/
+
+.third {
+    text-align: center;
+
+    width: 1440px;
+    height: 600px;
+}
+
+.third .airplane {
+    width: 100px;
+    
+    position: absolute;
+    left: 1150px;
+    top: 1430px;
+
+    z-index: -1;
+}
+
+.third .beach {
+    width: 120px;
+    
+    position: absolute;
+    left: 840px;
+    top: 1550px;
+
+    z-index: -1;
+}
+
+.third .title {
+    font-family: 'ChosunCentennial';
+    font-size: 30px;
+    font-weight: 700;
+
+    padding-top: 200px;
+}
+
+.third p {
+    font-family: 'SUIT-Regular';
+    font-size: 20px;
+    line-height: 70%;
+}
+
+.third .palm_tree {
+    width: 120px;
+    
+    position: absolute;
+    left: 150px;
+    top: 1900px;
+
+    z-index: -1;
+}
+
+/*FOURTH*/
+
+.fourth {
+    text-align: center;
+
+    width: 1440px;
+    height: 400px;
+}
+
+.fourth .title {
+    font-family: 'ChosunCentennial';
+    font-size: 30px;
+    font-weight: 700;
+
+    padding-top: 100px;
+}
+
+.fourth p {
+    font-family: 'SUIT-Regular';
+    font-size: 20px;
+    line-height: 70%;
+}
+
+hr {
+    height: 1px;
+    background-color: #289E9E;
+}

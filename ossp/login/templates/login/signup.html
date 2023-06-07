@@ -14,16 +14,17 @@
   <div class="page-wrapper" id="main-wrapper" data-layout="vertical" data-navbarbg="skin6" data-sidebartype="full"
     data-sidebar-position="fixed" data-header-position="fixed">
     <div
-      class="position-relative overflow-hidden radial-gradient min-vh-100 d-flex align-items-center justify-content-center">
+      class="min-vh-100 d-flex align-items-center justify-content-center">
       <div class="d-flex align-items-center justify-content-center w-100">
         <div class="row justify-content-center w-100">
           <div class="col-md-8 col-lg-6 col-xxl-3">
             <div class="card mb-0">
-              <div class="card-body">
+              <div class="card-body" style="background-color: #F3F6FC; border-radius: 15px;">
                 <a href="/" class="text-nowrap logo-img text-center d-block py-3 w-100">
                   <img src="../../static/dark-logo.svg" width="180" alt="">
+                  <br><br>
                 </a>
-                <p class="text-center">Your Social Campaigns</p>
+                <br>
 
 
 
@@ -35,27 +36,35 @@
                   {{ form.non_field_errors }}
 
                   <div class="mb-3">
-                    <label for="id_email" class="form-label">이메일</label>
-                    {{ form.email }}
+                    <label for="id_email" class="form-label" style="font-family: 'SUIT-Regular'; font-weight: 500; font-size: 16px;">이메일</label>
+                    <div style="float: right;">
+                      {{ form.email }}
+                    </div>
                   </div>
 
                   <div class="mb-4">
-                    <label for="id_password1" class="form-label">비밀번호</label>
-                    {{ form.password1 }}
+                    <label for="id_password1" class="form-label" style="font-family: 'SUIT-Regular'; font-weight: 500; font-size: 16px;">비밀번호</label>
+                    <div style="float: right;">
+                      {{ form.password1 }}
+                    </div>
                   </div>
 
                   <div class="mb-4">
-                    <label for="id_password2" class="form-label">비밀번호 확인</label>
+                    <label for="id_password2" class="form-label" style="font-family: 'SUIT-Regular'; font-weight: 500; font-size: 16px;">비밀번호 확인</label>
+                    <div style="float: right;">
                     {{ form.password2 }}
+                  </div>  
                   </div>
 
-                  <button type="submit" class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2">가입하기</button>
+                  <br>
+
+                  <button type="submit" class="btn btn-primary w-100 py-8 fs-4 mb-4 rounded-2" style="background-color: white; border-color: #f3f6fc; color: black; font-family: 'SUIT-Regular';">가입하기</button>
                   <div class="d-flex align-items-center justify-content-center">
-                    <a class="text-primary fw-bold" href="{% url 'login:login' %}">로그인하기</a>
+                    <a href="{% url 'login:login' %}" style="color: black; font-family: 'SUIT-Regular';" onmouseover="this.style.color='#A6B8D6'" onmouseout="this.style.color='black'">로그인하기</a>
                   </div>
                 </form>
 
-
+                <br>
 
 
 

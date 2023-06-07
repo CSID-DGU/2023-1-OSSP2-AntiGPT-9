@@ -264,3 +264,23 @@ a:hover {
   height: 100%;
   object-fit: contain;
 }
+
+
+/*homepage.html*/
+
+.hp {
+  background-color: white;
+  border-radius: 15px;
+
+  margin: 20px;
+  padding: 20px;
+  padding-top: 15px;
+}
+
+.hp > a {
+  color: #3080b9;
+}
+
+.hp > a:hover {
+  color: #c7d9ff;
+}

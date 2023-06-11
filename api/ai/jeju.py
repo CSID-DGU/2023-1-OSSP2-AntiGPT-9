@@ -38,15 +38,14 @@ def translate(text):
     return tmp'''
 
 
-class Jeju:
+class JejuToStandard:
 
     class GPT2Tokenizer(BaseGPT2Tokenizer):
         def build_inputs_with_special_tokens(self, token_ids, _):
             return token_ids + [self.eos_token_id]
 
-    trg_tokenizer = GPT2Tokenizer.from_pretrained("skt/kogpt2-base-v2",
-                                                  bos_token='</s>', eos_token='</s>', unk_token='<unk>',
-                                                  pad_token='<pad>', mask_token='<mask>')
+    trg_tokenizer = GPT2Tokenizer.from_pretrained("skt/kogpt2-base-v2", bos_token='</s>', eos_token='</s>',
+                                                  unk_token='<unk>', pad_token='<pad>', mask_token='<mask>')
 
     src_tokenizer = KoBertTokenizer.from_pretrained('monologg/kobert', from_tf=True)
     with open("ai/added_tokens.json", 'rb') as f:
@@ -60,10 +59,40 @@ class Jeju:
     model.eval()
     model.config.decoder_start_token_id = trg_tokenizer.bos_token_id
 
+
     def translate(self, text):
         embeddings = self.src_tokenizer(text, return_attention_mask=False, return_token_type_ids=False, return_tensors='pt')
         embeddings = {k: v for k, v in embeddings.items()}
         output = self.model.generate(**embeddings)[0, 1:-1]
+        tmp = self.trg_tokenizer.decode(output.cpu())
+        return tmp.strip()
+
+
+class StandardToJeju:
+    class GPT2Tokenizer(BaseGPT2Tokenizer):
+        def build_inputs_with_special_tokens(self, token_ids, _):
+            return token_ids + [self.eos_token_id]
+
+    trg_tokenizer = GPT2Tokenizer.from_pretrained("skt/kogpt2-base-v2", bos_token='</s>', eos_token='</s>',
+                                                  unk_token='<unk>', pad_token='<pad>', mask_token='<mask>')
+
+    src_tokenizer = KoBertTokenizer.from_pretrained('monologg/kobert', from_tf=True)
+    # standard to jeju
+    with open("ai/added_tokens_trg.json",'rb') as f:
+        dw_dict_trg = json.load(f)
+    dict_swap_trg = {v: k for k, v in dw_dict_trg.items()}
+    ma = 54000
+    mi = 51200
+    for i in range(51200, 54001):
+        trg_tokenizer.add_tokens(dict_swap_trg[i])
+
+    stj_model = EncoderDecoderModel.from_pretrained('leadawon/ossp-reverse-v0_3')
+    stj_model.eval()
+    stj_model.config.decoder_start_token_id = trg_tokenizer.bos_token_id
+    def translate(self, text):
+        embeddings = self.src_tokenizer(text, return_attention_mask=False, return_token_type_ids=False, return_tensors='pt')
+        embeddings = {k: v for k, v in embeddings.items()}
+        output = self.stj_model.generate(**embeddings)[0, 1:-1]
         tmp = self.trg_tokenizer.decode(output.cpu())
         return tmp.strip()
 

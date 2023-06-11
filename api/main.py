@@ -10,6 +10,6 @@ origins = ["*"]
 # route
 app.include_router(trans_router)
 
-# run: app api, port 8001, http://localhost:8001
+# run: app api, port 8010, http://localhost:8010
 if __name__ == "__main__":
     uvicorn.run("main:app", host="0.0.0.0", port=8010, reload=True)

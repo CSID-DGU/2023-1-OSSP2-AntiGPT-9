@@ -38,6 +38,7 @@ def translate(text):
     return tmp'''
 
 
+# Jeju To Standard translate Class
 class JejuToStandard:
 
     class GPT2Tokenizer(BaseGPT2Tokenizer):
@@ -68,6 +69,7 @@ class JejuToStandard:
         return tmp.strip()
 
 
+# Standard to Jeju translate Class
 class StandardToJeju:
     class GPT2Tokenizer(BaseGPT2Tokenizer):
         def build_inputs_with_special_tokens(self, token_ids, _):
@@ -89,6 +91,7 @@ class StandardToJeju:
     stj_model = EncoderDecoderModel.from_pretrained('leadawon/ossp-reverse-v0_3')
     stj_model.eval()
     stj_model.config.decoder_start_token_id = trg_tokenizer.bos_token_id
+
     def translate(self, text):
         embeddings = self.src_tokenizer(text, return_attention_mask=False, return_token_type_ids=False, return_tensors='pt')
         embeddings = {k: v for k, v in embeddings.items()}

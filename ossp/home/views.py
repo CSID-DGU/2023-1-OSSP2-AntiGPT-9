@@ -70,7 +70,7 @@ def api_commute(dialect):
     request_dialect = json.dumps(dialect_dict)
 
     # standard transfer, jeju model api request
-    response = requests.post("http://4.194.73.164:8010/jeju", data=request_dialect)
+    response = requests.post("http://4.194.73.164:8010/tostandard", data=request_dialect)
 
     return response.json()["standard"]
 

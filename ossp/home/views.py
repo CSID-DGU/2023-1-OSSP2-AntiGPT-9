@@ -5,6 +5,8 @@ from login.models import User
 from .models import *
 import requests
 import json
+import openai
+from django.http import HttpResponse
 
 
 def test(request):
@@ -37,7 +39,10 @@ def question_send_initial(request, user_id):
             subj = subj[:10] + "..."
         usr = User.objects.get(id = user_id)    #요청된 user_id에 해당하는 유저 객체 찾기
         room = ChatRoom.objects.create(user=usr, subject=subj, last_date=timezone.now())    #앞선 유저, 제목 객체들을 인자로 모아서 현시간부로 새로운 방 생성
-        ChatSet.objects.create(ChatRoom=room, Question=ques) #새로운 방에 역참조되는 문답 객체 생성
+        standard_ques = request_aimodel(input_text)
+        translated_answer = request_chatgpt(standard_ques)
+        answer = Answer.objects.create(content=translated_answer)
+        ChatSet.objects.create(ChatRoom=room,Question=ques, Answer=answer)    #새로운 방에 역참조되는 문답 객체 생성
         url = reverse('homepage:chatpage',args=(user_id, room.id))
         return redirect(url)
 
@@ -56,21 +61,38 @@ def question_send(request, user_id, chatroom_id):
         ques = Question.objects.create(content=input_text)
         room = ChatRoom.objects.get(user__id = user_id, id=chatroom_id)
         room.last_date=timezone.now()
-        ChatSet.objects.create(ChatRoom=room,Question=ques)
+        standard_ques = request_aimodel(input_text)
+        translated_answer = request_chatgpt(standard_ques)
+        answer = Answer.objects.create(content=translated_answer)
+        ChatSet.objects.create(ChatRoom=room,Question=ques, Answer=answer) 
         url = reverse('homepage:chatpage',args=(user_id, room.id))
         return redirect(url)
 
 #=================================================================================
 
-
 # api 통신, dialect String 입력, standard String 반환
-def api_commute(dialect):
-    # dialect serialization
+def request_aimodel(dialect):
+    # dialect seriallization
     dialect_dict = {"dialect":f"{dialect}"}
     request_dialect = json.dumps(dialect_dict)
 
     # standard transfer, jeju model api request
-    response = requests.post("http://4.194.73.164:8010/tostandard", data=request_dialect)
+    standard = requests.post("http://4.194.73.164:8010/jeju", data=request_dialect)
+    standard = standard.json()["standard"]
 
-    return response.json()["standard"]
+    return standard
 
+
+def request_chatgpt(message):
+    openai.api_key = "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"
+    response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=[
+            {'role': 'system', 'content': 'You are a user'}, {'role': 'user', 'content': message}
+        ]
+    )
+
+    # ChatGPT 답변 반환
+    chatgpt_response = response["choices"][0]["message"]["content"]
+    if chatgpt_response:
+        return chatgpt_response

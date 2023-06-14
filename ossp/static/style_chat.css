@@ -257,6 +257,7 @@ a:hover {
   display: flex;
   align-items: center;
   justify-content: center;
+  cursor: pointer;
 }
 
 .chat_button button img {
@@ -277,10 +278,15 @@ a:hover {
   padding-top: 15px;
 }
 
-.hp > a {
+.hp > form {
+  margin: 0;
+}
+
+.hp > form > a {
   color: #3080b9;
 }
 
-.hp > a:hover {
+.hp > form > a:hover {
   color: #c7d9ff;
+  cursor: pointer;
 }

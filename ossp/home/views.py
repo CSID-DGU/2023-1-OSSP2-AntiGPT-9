@@ -143,10 +143,9 @@ def request_aimodel(dialect):
     request_dialect = json.dumps(dialect_dict)
 
     # standard transfer, jeju model api request
-    standard = requests.post("http://4.194.73.164:8010/jeju", data=request_dialect)
-    standard = standard.json()["standard"]
+    response = requests.post("http://4.194.73.164:8010/tostandard", data=request_dialect)
 
-    return standard
+    return response.json()["standard"]
 
 
 def request_chatgpt(message):
